@@ -40,8 +40,16 @@
 </header>
 
 <!-- Begin page content -->
-<main class="flex-shrink-0 mt-5">
-    <div class="container">
+<main class="flex-shrink-0 mt-5 flex-1">
+    <div th:if="${!isInitialized}" class="container">
+        <div class="vh-50">
+            <h5>
+                The ATM has not been initialized. Click <a href="/settings">here</a> to setup
+                cash amounts
+            </h5>
+        </div>
+    </div>
+    <div th:if="${isInitialized}" class="container">
         <div class="d-flex flex-row mb-3 align-items-center">
             <h1>Cash Amount Update</h1>
             <div class="ms-5">

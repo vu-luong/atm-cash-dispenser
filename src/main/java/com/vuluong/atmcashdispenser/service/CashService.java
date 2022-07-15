@@ -4,6 +4,7 @@ import com.vuluong.atmcashdispenser.repo.CashRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,10 @@ public class CashService {
 
         // Obtain a positive sorted list of entries from the map in cashRepository
         List<Entry<String, Integer>> cashList = cashRepository.getPositiveSortedList();
+        
+        if (cashList.isEmpty()) {
+            return Collections.emptyMap();
+        }
 
         // Initialize savedPath and bestPath
         Map<Integer, Integer> savedPath = new HashMap<>();

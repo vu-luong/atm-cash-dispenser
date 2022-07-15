@@ -46,6 +46,7 @@ public class SettingsController {
 
     @GetMapping("/settings/update")
     public String settingsUpdateGet(Model model) {
+        model.addAttribute("isInitialized", cashService.isInitialized());
         model.addAttribute("amountByCash", cashService.getAmountByCash());
         return "settings/update";
     }
