@@ -24,6 +24,7 @@ Coding practical assignment for ALL AGED CARE
   - Withdrawal cash
   - Optimization to dispense combinations of cash that leave options open
   - Threshold notification
+  - Highly maintainable source code
   
 ### 3. Algorithms
   - Sort in ascesding order the cash items regarding their remaining amounts
@@ -47,4 +48,3 @@ Coding practical assignment for ALL AGED CARE
   
   ![Screenshot from 2022-07-15 23-19-54](https://user-images.githubusercontent.com/8142030/179231270-cdcb0309-2934-42b5-8ec5-61c1c1bec880.png)
 
-  
