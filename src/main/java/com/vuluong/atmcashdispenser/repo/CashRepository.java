@@ -1,4 +1,4 @@
-        // Initialize the amounts of all cash values to be zero
+// Initialize the amounts of all cash values to be zero
 package com.vuluong.atmcashdispenser.repo;
 
 import lombok.Getter;
@@ -12,13 +12,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.vuluong.atmcashdispenser.constant.Constants.CASH_AMOUNT_KEYS;
+import static com.vuluong.atmcashdispenser.constant.Constants.DEFAULT_WARNING_THRESHOLD;
 
-@Component
 @Setter
 @Getter
+@Component
 public class CashRepository {
 
     private boolean initialized = false;
+    private int warningThreshold = DEFAULT_WARNING_THRESHOLD;
     private Map<String, Integer> amountByCash = new HashMap<>();
 
     public CashRepository() {

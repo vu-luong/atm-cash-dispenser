@@ -32,6 +32,13 @@ public class CashService {
         return cashRepository.getAmountByCash();
     }
 
+    public void updateWarningThreshold(int threshold) {
+        cashRepository.setWarningThreshold(threshold);
+    }
+
+    public int getWarningThreshold() {
+        return cashRepository.getWarningThreshold();
+    }
 
     public void updateCashAmount(Map<String, Integer> amountByCash) {
         amountByCash.forEach(cashRepository::addAmount);
@@ -48,7 +55,7 @@ public class CashService {
 
         // Obtain a positive sorted list of entries from the map in cashRepository
         List<Entry<String, Integer>> cashList = cashRepository.getPositiveSortedList();
-        
+
         if (cashList.isEmpty()) {
             return Collections.emptyMap();
         }

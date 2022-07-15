@@ -23,14 +23,14 @@ public class CashWithdrawalController {
         if (!cashService.isInitialized()) {
             return "redirect:/settings";
         } else {
-            return "redirect:/dispense";
+            return "redirect:/withdrawal";
         }
     }
 
     @GetMapping("/withdrawal")
     public String withdrawalGet(Model model) {
         model.addAttribute("isInitialized", cashService.isInitialized());
-        return "withdrawal";
+        return "withdrawal/main";
     }
 
     @PostMapping("/withdrawal")

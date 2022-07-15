@@ -1,5 +1,6 @@
 package com.vuluong.atmcashdispenser.controller;
 
+import com.vuluong.atmcashdispenser.request.SettingsUpdateRequest;
 import com.vuluong.atmcashdispenser.service.CashService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -48,14 +49,16 @@ public class SettingsController {
     public String settingsUpdateGet(Model model) {
         model.addAttribute("isInitialized", cashService.isInitialized());
         model.addAttribute("amountByCash", cashService.getAmountByCash());
+        model.addAttribute("warningThreshold", cashService.getWarningThreshold());
         return "settings/update";
     }
 
     @PutMapping("/settings/update")
     public ResponseEntity<?> settingsUpdatePut(
-        @RequestBody Map<String, Integer> requestBody
+        @RequestBody SettingsUpdateRequest requestBody
     ) {
-        cashService.updateCashAmount(requestBody);
+        cashService.updateCashAmount(requestBody.getAmountByCash());
+        cashService.updateWarningThreshold(requestBody.getThreshold());
         return ResponseEntity.ok()
             .build();
     }

@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class Constants {
 
+    public static final int DEFAULT_WARNING_THRESHOLD = Integer.MAX_VALUE;
+
     public static final List<String> CASH_AMOUNT_KEYS = Arrays.asList(
         "amount5Cents",
         "amount10Cents",

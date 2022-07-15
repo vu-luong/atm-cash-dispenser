@@ -29,16 +29,26 @@
         </div>
     </div>
     <div th:if="${isInitialized}" class="container">
-        <div class="d-flex flex-row mb-3 align-items-center">
-            <h1>Cash Amount Update</h1>
-            <div class="ms-5">
-                <button type="button" class="btn btn-primary mb-2 btn-lg" onclick="onSubmitButtonClick()">
-                    Submit
-                </button>
+        <div class="d-flex flex-row mb-3 align-items-center justify-content-between row">
+            <div class="d-flex flex-row col-8">
+                <h1>Cash Amount Update</h1>
+                <div class="ms-5">
+                    <button type="button" class="btn btn-primary mb-2 btn-lg" onclick="onSubmitButtonClick()">
+                        Submit
+                    </button>
+                </div>
+            </div>
+            <div class="input-group col">
+                <span class="input-group-text">Warning threshold</span>
+                <input type="number" class="form-control w-150px" placeholder="0" aria-label=""
+                       id="thresholdInput" aria-describedby="" th:value="${warningThreshold}">
             </div>
         </div>
 
         <div class="container">
+            <div class="row">
+
+            </div>
             <div class="row">
                 <div class="col d-flex flex-column justify-content-center align-items-center px-3">
                     <div class="h-150px w-150px d-flex flex-row align-items-center">
@@ -204,7 +214,7 @@
 
 <script src="/js/bootstrap.bundle.min.js"></script>
 
-<script>
+<script th:inline="javascript">
 
 const cashMap = {
     "5Cents": ["5CentsInput", "5CentsSelect", "amount5Cents"],
@@ -243,7 +253,10 @@ function onSubmitButtonClick() {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+            "amountByCash": data,
+            "threshold": parseInt(document.getElementById("thresholdInput").value)
+        })
     }).then(res => {
         if (res.ok) {
             return res;
@@ -256,6 +269,26 @@ function onSubmitButtonClick() {
         console.error(error);
     });
 }
+
+function checkThreshold() {
+    let amountByCash = /*[[${amountByCash}]]*/ {};
+    let warningThreshold = /*[[${warningThreshold}]]*/ 0;
+
+    let warningText = 'The amounts of ';
+
+    for (const cash in amountByCash) {
+        if (amountByCash[cash] < warningThreshold) {
+            warningText = warningText + `${cash.split('amount')[1]}, `;
+        }
+    }
+    
+    warningText = warningText.slice(0, -2) + ' are less than the warning threshold!'
+
+    alert(warningText);
+}
+
+checkThreshold();
+
 </script>
 
 </body>
