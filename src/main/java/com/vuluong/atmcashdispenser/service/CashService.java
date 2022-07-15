@@ -76,7 +76,7 @@ public class CashService {
             int count = (int) (dispensedAmount / currentCashValue);
             if ((count * currentCashValue == dispensedAmount) && (count <= currentCashAmount)) {
                 currentPath.put(cashIndex, count);
-                evalulateSolution(currentPath, cashList);
+                evaluateSolution(currentPath, cashList);
             }
             return;
         }
@@ -97,7 +97,7 @@ public class CashService {
         }
     }
 
-    private void evalulateSolution(
+    private void evaluateSolution(
         Map<Integer, Integer> currentPath,
         List<Entry<String, Integer>> cashList
     ) {

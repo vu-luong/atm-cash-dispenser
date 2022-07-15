@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="en" class="h-100"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" class="h-100">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -181,50 +180,50 @@
 <script>
 
 const amountKeyByElementId = {
-  "5CentsInput": "amount5Cents",
-  "10CentsInput": "amount10Cents",
-  "20CentsInput": "amount20Cents",
-  "50CentsInput": "amount50Cents",
-  "1DollarInput": "amount1Dollar",
-  "2DollarsInput": "amount2Dollars",
-  "5DollarsInput": "amount5Dollars",
-  "10DollarsInput": "amount10Dollars",
-  "20DollarsInput": "amount20Dollars",
-  "50DollarsInput": "amount50Dollars",
-  "100DollarsInput": "amount100Dollars",
+    "5CentsInput": "amount5Cents",
+    "10CentsInput": "amount10Cents",
+    "20CentsInput": "amount20Cents",
+    "50CentsInput": "amount50Cents",
+    "1DollarInput": "amount1Dollar",
+    "2DollarsInput": "amount2Dollars",
+    "5DollarsInput": "amount5Dollars",
+    "10DollarsInput": "amount10Dollars",
+    "20DollarsInput": "amount20Dollars",
+    "50DollarsInput": "amount50Dollars",
+    "100DollarsInput": "amount100Dollars",
 }
 
 function onSubmitButtonClick() {
-  let data = {};
-  for (const elementId in amountKeyByElementId) {
-    data[amountKeyByElementId[elementId]] = parseInt(document.getElementById(elementId).value) || 0;
-  }
-
-  for (const id in data) {
-    if (data[id] < 0) {
-      alert(`Value for ${id} is negative!`);
-      return;
+    let data = {};
+    for (const elementId in amountKeyByElementId) {
+        data[amountKeyByElementId[elementId]] = parseInt(document.getElementById(elementId).value) || 0;
     }
-  }
 
-  fetch('/settings/initialization', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }).then(res => {
-    if (res.ok) {
-      return res;
+    for (const id in data) {
+        if (data[id] < 0) {
+            alert(`Value for ${id} is negative!`);
+            return;
+        }
     }
-    throw new Error(`status ${res.status}`)
-  })
-  .then(res => {
-    window.location.href = "/withdrawal";
-  }).catch((error) => {
-    console.error(error);
-  });
+
+    fetch('/settings/initialization', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(res => {
+        if (res.ok) {
+            return res;
+        }
+        throw new Error(`status ${res.status}`)
+    })
+    .then(res => {
+        window.location.href = "/withdrawal";
+    }).catch((error) => {
+        console.error(error);
+    });
 }
 </script>
 

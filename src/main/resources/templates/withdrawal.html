@@ -49,7 +49,7 @@
             </h5>
         </div>
         <div th:if="${isInitialized}" class="w-75 d-flex flex-column justify-content-center card p-5">
-            <h1>Cash Withdrawal</h1>
+            <h2>Cash Withdrawal</h2>
             <div class="input-group input-group-lg mt-5">
                 <span class="input-group-text" id="inputGroup-sizing-lg">Amount ($)</span>
                 <input id="withdrawalInput" type="number" class="form-control" aria-label="Sizing example input"
@@ -57,6 +57,9 @@
                        aria-describedby="inputGroup-sizing-lg">
             </div>
             <button class="btn btn-primary mt-5" onclick="onSubmitButtonClick()">Submit</button>
+            <div id="resultDiv" class="mt-5">
+
+            </div>
         </div>
     </div>
 </main>
@@ -72,38 +75,88 @@
 
 <script>
 
-function onSubmitButtonClick() {
-  let withdrawalAmount = Number(document.getElementById("withdrawalInput").value || 0)
-  if (!Number.isInteger(withdrawalAmount)) {
-    alert("The input amount must be an integer!")
-    return;
-  }
+const imgByAmountKey = {
+    "amount5Cents": "5cents.png",
+    "amount10Cents": "10cents.png",
+    "amount20Cents": "20cents.png",
+    "amount50Cents": "50cents.png",
+    "amount1Dollar": "1dollar.png",
+    "amount2Dollars": "2dollars.png",
+    "amount5Dollars": "5dollars.png",
+    "amount10Dollars": "10dollars.png",
+    "amount20Dollars": "20dollars.png",
+    "amount50Dollars": "50dollars.png",
+    "amount100Dollars": "100dollars.png",
+}
 
-  if (withdrawalAmount <= 0) {
-    alert("The input amount must be > 0!")
-    return;
-  }
+function renderOutput(data) {
+    document.getElementById("resultDiv").textContent = '';
 
-  fetch('/withdrawal', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({"amount": withdrawalAmount})
-  })
-  .then(res => {
-    if (res.ok) {
-      return res.json();
+    let html = '';
+
+    // Solution not found
+    if (Object.keys(data).length === 0) {
+        let div = document.createElement('div');
+        div.innerHTML = '<h5 class="text-red">Failed to find a suitable combination of notes!</h5>';
+        document.getElementById("resultDiv").appendChild(div);
+        return;
     }
-    throw new Error(`status ${res.status}`)
-  })
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+
+    for (const amountKey in data) {
+        if (data[amountKey] > 0) {
+            html = html +
+                `<div>
+            <h4>Successfully dispense cash!</h4>
+            <div class="d-flex row">
+                <div class="col">
+                    <img alt="..." class="img-fluid col" src="/img/${imgByAmountKey[amountKey]}"> 
+                </div>
+                <div class="col d-flex flex-row align-items-center">
+                    <h3> x ${data[amountKey]}</h3>
+                </div>
+            </div>
+        </div>`
+        }
+    }
+
+    let div = document.createElement('div');
+    div.innerHTML = html;
+
+    document.getElementById("resultDiv").appendChild(div);
+}
+
+function onSubmitButtonClick() {
+    let withdrawalAmount = Number(document.getElementById("withdrawalInput").value || 0)
+    if (!Number.isInteger(withdrawalAmount)) {
+        alert("The input amount must be an integer!")
+        return;
+    }
+
+    if (withdrawalAmount <= 0) {
+        alert("The input amount must be > 0!")
+        return;
+    }
+
+    fetch('/withdrawal', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"amount": withdrawalAmount})
+    })
+    .then(res => {
+        if (res.ok) {
+            return res.json();
+        }
+        throw new Error(`status ${res.status}`)
+    })
+    .then((res) => {
+        renderOutput(res);
+    })
+    .catch((error) => {
+        console.error(error);
+    });
 }
 
 </script>
