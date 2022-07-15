@@ -47,7 +47,7 @@ Coding practical assignment for ALL AGED CARE
 
 ### 4. Discussions
   - The time complexity of the algorithm is O(N1 * N2 * ... * N11), where N1, N2,..., and N11 is the amounts of 5-cent coin, 10-cent coin,..., and 100-dollar note, respectively.
-  - We can speed up the search procedure by parallelization: split the graph into multiple parts, and then perform different searches on those parts separately, as shown in the following figure:
+  - In the future, I can speed up the search procedure by parallelization: split the graph into multiple parts, and then perform different searches on those parts separately, as shown in the following figure:
   
   ![Screenshot from 2022-07-15 23-19-54](https://user-images.githubusercontent.com/8142030/179231270-cdcb0309-2934-42b5-8ec5-61c1c1bec880.png)
 
