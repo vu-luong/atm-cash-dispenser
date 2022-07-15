@@ -22,6 +22,7 @@ public class Constants {
     );
 
     public static final Map<String, Double> VALUE_BY_CASH_AMOUNT_KEY;
+    public static final Map<String, String> NEXT_CASH_AMOUNT_KEY;
 
     static {
         VALUE_BY_CASH_AMOUNT_KEY = new HashMap<>();
@@ -36,6 +37,19 @@ public class Constants {
         VALUE_BY_CASH_AMOUNT_KEY.put("amount20Dollars", 20.0);
         VALUE_BY_CASH_AMOUNT_KEY.put("amount50Dollars", 50.0);
         VALUE_BY_CASH_AMOUNT_KEY.put("amount100Dollars", 100.0);
+
+        NEXT_CASH_AMOUNT_KEY = new HashMap<>();
+        NEXT_CASH_AMOUNT_KEY.put("amount5Cents", "amount10Cents");
+        NEXT_CASH_AMOUNT_KEY.put("amount10Cents", "amount20Cents");
+        NEXT_CASH_AMOUNT_KEY.put("amount20Cents", "amount50Cents");
+        NEXT_CASH_AMOUNT_KEY.put("amount50Cents", "amount1Dollar");
+        NEXT_CASH_AMOUNT_KEY.put("amount1Dollar", "amount2Dollars");
+        NEXT_CASH_AMOUNT_KEY.put("amount2Dollars", "amount5Dollars");
+        NEXT_CASH_AMOUNT_KEY.put("amount5Dollars", "amount10Dollars");
+        NEXT_CASH_AMOUNT_KEY.put("amount10Dollars", "amount20Dollars");
+        NEXT_CASH_AMOUNT_KEY.put("amount20Dollars", "amount50Dollars");
+        NEXT_CASH_AMOUNT_KEY.put("amount50Dollars", "amount100Dollars");
+        NEXT_CASH_AMOUNT_KEY.put("amount100Dollars", null);
     }
 
     private Constants() {}

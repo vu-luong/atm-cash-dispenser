@@ -4,8 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.vuluong.atmcashdispenser.constant.Constants.CASH_AMOUNT_KEYS;
 
@@ -23,8 +26,28 @@ public class CashRepository {
             amountByCash.put(cashAmountKey, 0);
         }
     }
-    
-    public void addAmount(String cashAmountKey, int amount) {
+
+    public void setAmount(String cashAmountKey, int amount) {
         amountByCash.put(cashAmountKey, amount);
+    }
+
+    public void subtractAmount(String cashAmountKey, int amount) {
+        int currentAmount = amountByCash.get(cashAmountKey);
+        if (amount > currentAmount) {
+            throw new IllegalArgumentException(
+                "The given amount is too large!"
+            );
+        }
+        amountByCash.put(cashAmountKey, currentAmount - amount);
+    }
+
+    public List<Map.Entry<String, Integer>> getPositiveSortedList() {
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(
+            amountByCash.entrySet()
+        );
+        list.sort(Map.Entry.comparingByValue());
+        return list.stream()
+            .filter(entry -> entry.getValue() > 0)
+            .collect(Collectors.toList());
     }
 }

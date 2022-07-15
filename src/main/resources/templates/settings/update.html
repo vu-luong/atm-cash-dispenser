@@ -31,7 +31,7 @@
                         <a class="nav-link active" aria-current="page" href="/settings">Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/dispense">Dispense</a>
+                        <a class="nav-link" href="/withdrawal">Withdrawal</a>
                     </li>
                 </ul>
             </div>
@@ -70,7 +70,7 @@
                     <div class="h-150px w-150px d-flex flex-row align-items-center">
                         <img src="/img/10cents.png" class="w-100" alt="...">
                     </div>
-                    <h4 th:text="${amountByCash.get('amount10Cents') + ' x 5¢'}"></h4> 
+                    <h4 th:text="${amountByCash.get('amount10Cents') + ' x 5¢'}"></h4>
                     <div class="input-group mt-3">
                         <select id="10CentsSelect" class="form-select bg-light" aria-label="Default select example">
                             <option selected value="1">Add</option>

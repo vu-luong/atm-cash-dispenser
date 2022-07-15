@@ -23,3 +23,11 @@ main > .container {
 .h-150px {
     height: 150px;
 }
+
+.vh-50 {
+    height: 50vh !important
+}
+
+.flex-1 {
+    flex: 1;
+}

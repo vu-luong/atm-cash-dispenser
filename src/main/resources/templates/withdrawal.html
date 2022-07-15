@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en" class="h-100"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="Vu Luong">
+<title>ATM Cash Dispenser Application</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="/css/styles.css" rel="stylesheet">
+</head>
+<body class="d-flex flex-column h-100">
+
+<header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">ATM Cash Dispenser</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/settings">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/withdrawal">Withdrawal</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Begin page content -->
+<main class="flex-shrink-0 mt-5" style="flex: 1">
+    <div class="container d-flex flex-column align-items-center">
+        <div class="vh-50" th:if="${!isInitialized}">
+            <h5>
+                The ATM has not been initialized. Click <a href="/settings">here</a> to setup
+                cash amounts
+            </h5>
+        </div>
+        <div th:if="${isInitialized}" class="w-75 d-flex flex-column justify-content-center card p-5">
+            <h1>Cash Withdrawal</h1>
+            <div class="input-group input-group-lg mt-5">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Amount ($)</span>
+                <input id="withdrawalInput" type="number" class="form-control" aria-label="Sizing example input"
+                       placeholder="0"
+                       aria-describedby="inputGroup-sizing-lg">
+            </div>
+            <button class="btn btn-primary mt-5" onclick="onSubmitButtonClick()">Submit</button>
+        </div>
+    </div>
+</main>
+
+<footer class="footer mt-5 py-3 bg-light">
+    <div class="container">
+        <span class="text-muted">ALL AGED CARE Programming Assignment</span>
+    </div>
+</footer>
+
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+function onSubmitButtonClick() {
+  let withdrawalAmount = Number(document.getElementById("withdrawalInput").value || 0)
+  if (!Number.isInteger(withdrawalAmount)) {
+    alert("The input amount must be an integer!")
+    return;
+  }
+
+  if (withdrawalAmount <= 0) {
+    alert("The input amount must be > 0!")
+    return;
+  }
+
+  fetch('/withdrawal', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({"amount": withdrawalAmount})
+  })
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    throw new Error(`status ${res.status}`)
+  })
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}
+
+</script>
+
+</body>
+</html>
