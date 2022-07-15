@@ -30,11 +30,21 @@ Coding practical assignment for ALL AGED CARE
   
   - Represent the problem by a graph
   
+  ![Screenshot from 2022-07-15 23-01-59](https://user-images.githubusercontent.com/8142030/179228328-c416f1b2-98a8-4737-82c9-1671c8532712.png)
+  
   - Use DFS to find all paths in the graph corresponding to valid cash combinations
   
-  - Output the path that has the maximum value of the lowest remaining amount.
+  ![Screenshot from 2022-07-15 23-06-56](https://user-images.githubusercontent.com/8142030/179229167-05583b0f-924b-457a-afc5-e22ce694ae93.png)
+  
+  - Output the path that has the maximum value of the lowest remaining amount. For example, a user requests to dispense $150, there are two solutions: **(1)** {0 x $5, 1 x $100, 1 x $50}, and **(2)** {0 x $5, 0 x $100, 3 x $50}
+    - If solution 1 is used, the remaining amount is {1 x $5, 1 x $100, 2 x $50} => lowest_amount(1) = 1
+    - If solution 2 is used, the remaining amount is {1 x $5, 2 x $100, 0 x $50} => lowest_amount(2) = 0
+    - lowest_amount(1) > lowest_amount(2) => solution 1 is better than solution 2
 
 ### 4. Discussions
   - The time complexity of the algorithm is O(N1 * N2 * ... * N11), where N1, N2,..., and N11 is the amounts of 5-cent coin, 10-cent coin,..., and 100-dollar note, respectively.
   - We can speed up the search procedure by parallelization: split the graph into multiple parts, and then perform different searches on those parts separately, as shown in the following figure:
+  
+  ![Screenshot from 2022-07-15 23-19-54](https://user-images.githubusercontent.com/8142030/179231270-cdcb0309-2934-42b5-8ec5-61c1c1bec880.png)
+
   
