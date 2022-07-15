@@ -16,28 +16,7 @@
 </head>
 <body class="d-flex flex-column h-100">
 
-<header>
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">ATM Cash Dispenser</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/settings">Settings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/withdrawal">Withdrawal</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
+<header th:insert="fragments/header.html :: header(activeItem='settings')"></header>
 
 <!-- Begin page content -->
 <main class="flex-shrink-0 mt-5 flex-1">
@@ -221,12 +200,7 @@
     </div>
 </main>
 
-<footer class="footer mt-5 py-3 bg-light">
-    <div class="container">
-        <span class="text-muted">ALL AGED CARE Programming Assignment</span>
-    </div>
-</footer>
-
+<footer th:insert="fragments/footer.html"></footer>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
 
@@ -249,9 +223,12 @@ const cashMap = {
 function onSubmitButtonClick() {
     let data = {};
     for (const cash in cashMap) {
-        let amount = parseInt(document.getElementById(cashMap[cash][0]).value) || 0;
         let sign = (document.getElementById(cashMap[cash][1]).value === "1") ? 1 : -1;
-
+        let amount = Number(document.getElementById(cashMap[cash][0]).value || 0);
+        if (!Number.isInteger(amount)) {
+            alert(`Value for ${cash} is not an integer!`);
+            return;
+        }
         if (amount < 0) {
             alert(`Value for ${cash} is negative!`);
             return;

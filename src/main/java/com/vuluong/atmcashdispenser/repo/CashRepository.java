@@ -1,3 +1,4 @@
+        // Initialize the amounts of all cash values to be zero
 package com.vuluong.atmcashdispenser.repo;
 
 import lombok.Getter;
