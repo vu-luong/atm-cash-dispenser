@@ -4,6 +4,9 @@ Coding practical assignment for ALL AGED CARE
 
 ![Screenshot from 2022-07-15 16-43-59](https://user-images.githubusercontent.com/8142030/179166832-8c904163-eee6-4cc5-ab5d-b68df16ec0f5.png)
 
+# Video demo
+  - https://youtu.be/hf0YU28dkAg
+
 # How to run?
 
 1. Open project in IntelliJ: Open -> Choose folder containing the source code -> Wait for IntelliJ to download dependencies and to index the project.
