@@ -275,16 +275,21 @@ function checkThreshold() {
     let warningThreshold = /*[[${warningThreshold}]]*/ 0;
 
     let warningText = 'The amounts of ';
+    
+    let hasWarning = false;
 
     for (const cash in amountByCash) {
         if (amountByCash[cash] < warningThreshold) {
             warningText = warningText + `${cash.split('amount')[1]}, `;
+            hasWarning = true;
         }
     }
     
     warningText = warningText.slice(0, -2) + ' are less than the warning threshold!'
 
-    alert(warningText);
+    if (hasWarning) {
+        alert(warningText);
+    }
 }
 
 checkThreshold();
