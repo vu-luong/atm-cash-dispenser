@@ -4,6 +4,9 @@ import com.vuluong.atmcashdispenser.repo.CashRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 @AllArgsConstructor
 public class CashService {
@@ -14,7 +17,12 @@ public class CashService {
         return cashRepository.isInitialized();
     }
 
-    public void initialize() {
-       
+    public void initialize(HashMap<String, Integer> data) {
+        data.forEach(cashRepository::addAmount);
+        cashRepository.setInitialized(true);
+    }
+
+    public Map<String, Integer> getAmountByCash() {
+        return cashRepository.getAmountByCash();
     }
 }

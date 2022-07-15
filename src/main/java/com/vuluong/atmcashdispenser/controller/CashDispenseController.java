@@ -3,6 +3,7 @@ package com.vuluong.atmcashdispenser.controller;
 import com.vuluong.atmcashdispenser.service.CashService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -14,18 +15,14 @@ public class CashDispenseController {
     @GetMapping("/")
     public String homeGet() {
         if (!cashService.isInitialized()) {
-            return "redirect:/initialize";
+            return "redirect:/settings";
         } else {
             return "redirect:/dispense";
         }
     }
 
-    @GetMapping("/initialize")
-    public String initializeGet() {
-        if (cashService.isInitialized()) {
-            return "redirect:/dispense";
-        } else {
-            return "initialize";
-        }
+    @GetMapping("/dispense")
+    public String dispenseGet() {
+        return "dispense";
     }
 }

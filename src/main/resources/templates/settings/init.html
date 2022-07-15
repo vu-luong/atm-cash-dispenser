@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en" class="h-100"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="Vu Luong">
+<title>ATM Cash Dispenser Application</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="/css/styles.css" rel="stylesheet">
+</head>
+<body class="d-flex flex-column h-100">
+
+<header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">ATM Cash Dispenser</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/settings">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dispense">Dispense</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Begin page content -->
+<main class="flex-shrink-0 mt-5">
+    <div class="container">
+        <div class="d-flex flex-row mb-3 align-items-center">
+            <h1>Cash Amount Initialization</h1>
+            <div class="ms-5">
+                <button type="button" class="btn btn-primary mb-2 btn-lg" onclick="onSubmitButtonClick()">
+                    Submit
+                </button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex flex-column justify-content-center align-items-center px-3">
+                    <div class="h-150px w-150px d-flex flex-row align-items-center">
+                        <img src="/img/5cents.png" class="w-100" alt="...">
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">5¢</span>
+                        <input id="5CentsInput" type="text" class="form-control" aria-label="" placeholder="Amount...">
+                    </div>
+                </div>
+                <div class="col d-flex flex-column justify-content-center align-items-center px-3">
+                    <div class="h-150px w-150px d-flex flex-row align-items-center">
+                        <img src="/img/10cents.png" class="w-100" alt="...">
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">10¢</span>
+                        <input id="10CentsInput" type="text" class="form-control" aria-label="" placeholder="Amount...">
+                    </div>
+                </div>
+                <div class="col d-flex flex-column justify-content-center align-items-center px-3">
+                    <div class="h-150px w-150px d-flex flex-row align-items-center">
+                        <img src="/img/20cents.png" class="w-100" alt="...">
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">20¢</span>
+                        <input id="20CentsInput" type="text" class="form-control" aria-label="" placeholder="Amount...">
+                    </div>
+                </div>
+                <div class="col d-flex flex-column justify-content-center align-items-center px-3">
+                    <div class="h-150px w-150px d-flex flex-row align-items-center">
+                        <img src="/img/50cents.png" class="w-100" alt="...">
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">50¢</span>
+                        <input id="50CentsInput" type="text" class="form-control" aria-label="" placeholder="Amount...">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col d-flex flex-column justify-content-center align-items-center px-3">
+                    <div class="h-150px w-150px d-flex flex-row align-items-center">
+                        <img src="/img/1dollar.png" class="w-100" alt="...">
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">1$</span>
+                        <input id="1DollarInput" type="text" class="form-control" aria-label="" placeholder="Amount...">
+                    </div>
+                </div>
+                <div class="col d-flex flex-column justify-content-center align-items-center px-3">
+                    <div class="h-150px w-150px d-flex flex-row align-items-center">
+                        <img src="/img/2dollars.png" class="w-100" alt="...">
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">2$</span>
+                        <input id="2DollarsInput" type="text" class="form-control" aria-label=""
+                               placeholder="Amount...">
+                    </div>
+                </div>
+                <div class="col d-flex flex-column justify-content-center align-items-center px-3">
+                    <div class="h-150px w-150px d-flex flex-row align-items-center">
+                        <img src="/img/5dollars.png" class="w-100" alt="...">
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">5$</span>
+                        <input id="5DollarsInput" type="text" class="form-control" aria-label=""
+                               placeholder="Amount...">
+                    </div>
+                </div>
+                <div class="col d-flex flex-column justify-content-center align-items-center px-3">
+                    <div class="h-150px w-150px d-flex flex-row align-items-center">
+                        <img src="/img/10dollars.png" class="w-100" alt="...">
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">10$</span>
+                        <input id="10DollarsInput" type="text" class="form-control" aria-label=""
+                               placeholder="Amount...">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col d-flex flex-column justify-content-center align-items-center px-3">
+                    <div class="h-150px w-150px d-flex flex-row align-items-center">
+                        <img src="/img/20dollars.png" class="w-100" alt="...">
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">20$</span>
+                        <input id="20DollarsInput" type="text" class="form-control" aria-label=""
+                               placeholder="Amount...">
+                    </div>
+                </div>
+                <div class="col d-flex flex-column justify-content-center align-items-center px-3">
+                    <div class="h-150px w-150px d-flex flex-row align-items-center">
+                        <img src="/img/50dollars.png" class="w-100" alt="...">
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">50$</span>
+                        <input id="50DollarsInput" type="text" class="form-control" aria-label=""
+                               placeholder="Amount...">
+                    </div>
+                </div>
+                <div class="col d-flex flex-column justify-content-center align-items-center px-3">
+                    <div class="h-150px w-150px d-flex flex-row align-items-center">
+                        <img src="/img/100dollars.png" class="w-100" alt="...">
+                    </div>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text">100$</span>
+                        <input id="100DollarsInput" type="text" class="form-control" aria-label=""
+                               placeholder="Amount...">
+                    </div>
+                </div>
+                <div class="col d-flex flex-column justify-content-center align-items-center px-3">
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer mt-5 py-3 bg-light">
+    <div class="container">
+        <span class="text-muted">ALL AGED CARE Programming Assignment</span>
+    </div>
+</footer>
+
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+const amountKeyByElementId = {
+  "5CentsInput": "amount5Cents",
+  "10CentsInput": "amount10Cents",
+  "20CentsInput": "amount20Cents",
+  "50CentsInput": "amount50Cents",
+  "1DollarInput": "amount1Dollar",
+  "2DollarsInput": "amount2Dollars",
+  "5DollarsInput": "amount5Dollars",
+  "10DollarsInput": "amount10Dollars",
+  "20DollarsInput": "amount20Dollars",
+  "50DollarsInput": "amount50Dollars",
+  "100DollarsInput": "amount100Dollars",
+}
+
+function onSubmitButtonClick() {
+  let data = {};
+  for (const elementId in amountKeyByElementId) {
+    data[amountKeyByElementId[elementId]] = parseInt(document.getElementById(elementId).value) || 0;
+  }
+
+  for (const id in data) {
+    if (data[id] < 0) {
+      alert(`Value for ${id} is negative!`);
+      return;
+    }
+  }
+
+  fetch('/settings/initialization', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(res => {
+    window.location.href = "/dispense";
+  }).catch((error) => {
+    console.error('Error:', error);
+  });
+}
+</script>
+
+</body>
+</html>
