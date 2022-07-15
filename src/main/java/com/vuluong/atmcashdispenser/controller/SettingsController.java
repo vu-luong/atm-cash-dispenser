@@ -7,9 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @AllArgsConstructor
@@ -26,26 +27,35 @@ public class SettingsController {
         }
     }
 
-    @GetMapping("settings/initialization")
+    @GetMapping("/settings/initialization")
     public String settingsInitializationGet() {
         return "settings/init";
     }
 
-    @PostMapping("settings/initialization")
+    @PostMapping("/settings/initialization")
     public ResponseEntity<String> settingsInitializationPost(
-        @RequestBody HashMap<String, Integer> settingInitializationData
+        @RequestBody Map<String, Integer> requestBody
     ) {
         cashService.initialize(
-            settingInitializationData
+            requestBody
         );
 
         return ResponseEntity.ok()
             .build();
     }
 
-    @GetMapping("settings/update")
+    @GetMapping("/settings/update")
     public String settingsUpdateGet(Model model) {
         model.addAttribute("amountByCash", cashService.getAmountByCash());
         return "settings/update";
+    }
+
+    @PutMapping("/settings/update")
+    public ResponseEntity<?> settingsUpdatePut(
+        @RequestBody Map<String, Integer> requestBody
+    ) {
+        cashService.updateCashAmount(requestBody);
+        return ResponseEntity.ok()
+            .build();
     }
 }

@@ -224,39 +224,51 @@
 
 <script>
 
-const elementIdList = [
-    "5CentsInput", "10CentsInput", "20CentsInput", "50CentsInput", "1DollarInput",
-    "2DollarsInput", "5DollarsInput", "10DollarsInput", "50DollarsInput", "100DollarsInput"
-]
+const cashMap = {
+    "5Cents": ["5CentsInput", "5CentsSelect", "amount5Cents"],
+    "10Cents": ["10CentsInput", "10CentsSelect", "amount10Cents"],
+    "20Cents": ["20CentsInput", "20CentsSelect", "amount20Cents"],
+    "50Cents": ["50CentsInput", "50CentsSelect", "amount50Cents"],
+    "1Dollar": ["1DollarInput", "1DollarSelect", "amount1Dollar"],
+    "2Dollars": ["2DollarsInput", "2DollarsSelect", "amount2Dollars"],
+    "5Dollars": ["5DollarsInput", "5DollarsSelect", "amount5Dollars"],
+    "10Dollars": ["10DollarsInput", "10DollarsSelect", "amount10Dollars"],
+    "20Dollars": ["20DollarsInput", "20DollarsSelect", "amount20Dollars"],
+    "50Dollars": ["50DollarsInput", "50DollarsSelect", "amount50Dollars"],
+    "100Dollars": ["100DollarsInput", "100DollarsSelect", "amount100Dollars"],
+}
 
 function onSubmitButtonClick() {
     let data = {};
-    elementIdList.forEach(id => {
-        data[id] = parseInt(document.getElementById(id).value) || 0;
-    });
+    for (const cash in cashMap) {
+        let amount = parseInt(document.getElementById(cashMap[cash][0]).value) || 0;
+        let sign = (document.getElementById(cashMap[cash][1]).value === "1") ? 1 : -1;
 
-    console.log(data);
-
-    for (const id in data) {
-        if (data[id] < 0) {
-            console.log('den day roi');
-            alert(`Value for ${id} is negative!`);
+        if (amount < 0) {
+            alert(`Value for ${cash} is negative!`);
+            return;
         }
+
+        data[cashMap[cash][2]] = sign * amount;
     }
 
-    console.log(data);
-
-    fetch('/settings/initialization', {
-        method: 'POST',
+    fetch('/settings/update', {
+        method: 'PUT',
         headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
     }).then(res => {
-        location.reload();
+        if (res.ok) {
+            return res;
+        }
+        throw new Error(`status ${res.status}`)
+    })
+    .then(res => {
+        window.location.reload();
     }).catch((error) => {
-        console.error('Error:', error);
+        console.error(error);
     });
 }
 </script>

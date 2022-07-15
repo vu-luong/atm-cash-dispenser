@@ -22,8 +22,8 @@ public class CashService {
         return cashRepository.isInitialized();
     }
 
-    public void initialize(HashMap<String, Integer> data) {
-        data.forEach(cashRepository::setAmount);
+    public void initialize(Map<String, Integer> amountByCash) {
+        amountByCash.forEach(cashRepository::setAmount);
         cashRepository.setInitialized(true);
     }
 
@@ -31,11 +31,16 @@ public class CashService {
         return cashRepository.getAmountByCash();
     }
 
+
+    public void updateCashAmount(Map<String, Integer> amountByCash) {
+        amountByCash.forEach(cashRepository::addAmount);
+    }
+
     /**
      * Performs main algorithm to dispense cash
      *
      * @param dispensedAmount
-     *     Amount of cash needs to be dispense
+     *     Amount of cash needs to be dispensed
      * @return a map from cash values to their counts, which sum up to dispensed amount
      */
     public Map<String, Integer> dispense(int dispensedAmount) {

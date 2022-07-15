@@ -31,6 +31,15 @@ public class CashRepository {
         amountByCash.put(cashAmountKey, amount);
     }
 
+    public void addAmount(String cashAmountKey, int amount) {
+        if (amount < 0) {
+            subtractAmount(cashAmountKey, -amount);
+            return;
+        }
+        int currentAmount = amountByCash.get(cashAmountKey);
+        amountByCash.put(cashAmountKey, currentAmount + amount);
+    }
+
     public void subtractAmount(String cashAmountKey, int amount) {
         int currentAmount = amountByCash.get(cashAmountKey);
         if (amount > currentAmount) {
