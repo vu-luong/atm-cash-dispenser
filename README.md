@@ -29,7 +29,7 @@ Coding practical assignment for ALL AGED CARE
   - Threshold notification
   - Highly maintainable source code
   
-### 3. Algorithms
+### 3. Cash Dispensing Algorithm:
   - Sort in ascesding order the cash items regarding their remaining amounts
   
   - Represent the problem by a graph
@@ -45,7 +45,7 @@ Coding practical assignment for ALL AGED CARE
     - If solution 2 is used, the remaining amount is {1 x $5, 2 x $100, 0 x $50} => lowest_amount(2) = 0
     - lowest_amount(1) > lowest_amount(2) => solution 1 is better than solution 2
 
-### 4. Discussions
+### 4. Discussions:
   - The time complexity of the algorithm is O(N1 * N2 * ... * N11), where N1, N2,..., and N11 is the amounts of 5-cent coin, 10-cent coin,..., and 100-dollar note, respectively.
   - In the future, I can speed up the search procedure by parallelization: split the graph into multiple parts, and then perform different searches on those parts separately, as shown in the following figure:
   
